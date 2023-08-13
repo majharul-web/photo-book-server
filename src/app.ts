@@ -2,6 +2,7 @@ import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import httpStatus from 'http-status';
+import routes from './app/routes';
 
 const app: Application = express();
 
@@ -12,13 +13,11 @@ app.use(express.json());
 
 // Routes
 
-// test error
+app.use('/api/v1/', routes);
+
+//Home route
 app.get('/', async (req: Request, res: Response) => {
-  res.send('Hello world');
-  // Promise.reject(new Error('Unhandled promise rejection'));
-  // throw new ApiError(400, 'Something went wrong');
-  // next('something went wrong');
-  // throw new Error('Something went wrong');
+  res.send('Welcome to the Photo Book');
 });
 
 // Error handler
