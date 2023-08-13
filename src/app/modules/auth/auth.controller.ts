@@ -13,7 +13,7 @@ const signUp = catchAsync(async (req: Request, res: Response) => {
   }
   const result = await AuthService.signUp(userData);
 
-  sendResponse<IUser>(res, {
+  sendResponse<Partial<IUser>>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User created successfully!',
@@ -25,7 +25,7 @@ const signIn = catchAsync(async (req: Request, res: Response) => {
 
   const result = await AuthService.signIn(userData);
 
-  sendResponse<IUser>(res, {
+  sendResponse<Partial<IUser>>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User login successfully!',

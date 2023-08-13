@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-this-alias */
 import { Schema, model } from 'mongoose';
 import { IUser, UserModel } from './user.interface';
 import { userRole } from './user.constant';
 import ApiError from '../../../errors/ApiError';
 import httpStatus from 'http-status';
+import bcrypt from 'bcrypt';
+import config from '../../../config';
 
 const userSchema = new Schema<IUser>(
   {
@@ -50,6 +53,30 @@ const userSchema = new Schema<IUser>(
   }
 );
 
+// create static method
+
+userSchema.statics.isUserExistByEmail = async function (
+  email: string
+): Promise<Pick<IUser, 'email' | '_id' | 'password' | 'role'> | null> {
+  return await User.findOne(
+    { email: email },
+    {
+      email: 1,
+      _id: 1,
+      password: 1,
+      role: 1,
+    }
+  );
+};
+
+// check password is matched
+userSchema.statics.isPasswordMatched = async function (
+  givenPassword: string,
+  savePassword: string
+): Promise<boolean> {
+  return await bcrypt.compare(givenPassword, savePassword);
+};
+
 userSchema.pre('save', async function (next) {
   const isExist = await User.findOne({
     email: this.email,
@@ -57,6 +84,16 @@ userSchema.pre('save', async function (next) {
   if (isExist) {
     throw new ApiError(httpStatus.CONFLICT, 'Email already exist');
   }
+  next();
+});
+
+// hash password
+userSchema.pre('save', async function (next) {
+  const user = this;
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bycrypt_salt_rounds)
+  );
   next();
 });
 
