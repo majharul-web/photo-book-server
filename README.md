@@ -28,8 +28,6 @@ yarn run dev
 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 ### Frontend Live Link: https://photo-book-mi.netlify.app/
 
 ### Frontend Code Link: https://github.com/majharul-web/photo-book-client.git
