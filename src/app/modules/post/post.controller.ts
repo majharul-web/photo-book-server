@@ -75,6 +75,7 @@ const updatePost = catchAsync(async (req: Request, res: Response) => {
 const reviewPost = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const reviewData = req.body;
+
   const result = await PostService.reviewPost(id, reviewData);
 
   sendResponse<IPost>(res, {
@@ -87,8 +88,8 @@ const reviewPost = catchAsync(async (req: Request, res: Response) => {
 
 const LikePost = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { like } = req.body;
-  const result = await PostService.LikePost(id, like);
+
+  const result = await PostService.LikePost(id);
 
   sendResponse<IPost>(res, {
     statusCode: httpStatus.OK,

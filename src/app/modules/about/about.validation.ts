@@ -16,6 +16,9 @@ const createAboutZodSchema = z.object({
     address: z.string({
       required_error: 'Address is required',
     }),
+    description: z.string({
+      required_error: 'Description is required',
+    }),
   }),
 });
 
@@ -25,6 +28,7 @@ const updateAboutZodSchema = z.object({
     email: z.string().email({ message: 'Invalid email address' }).optional(),
     institute: z.string().optional(),
     address: z.string().optional(),
+    description: z.string().optional(),
   }),
 });
 

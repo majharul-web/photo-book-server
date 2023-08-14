@@ -19,6 +19,10 @@ const AboutSchema = new Schema<IAbout>(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

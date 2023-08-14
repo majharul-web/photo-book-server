@@ -119,7 +119,7 @@ const reviewPost = async (
   return result;
 };
 
-const LikePost = async (id: string, payload: number): Promise<IPost | null> => {
+const LikePost = async (id: string): Promise<IPost | null> => {
   const isExist = await Post.findOne({ _id: id });
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Post not found!');
@@ -127,7 +127,7 @@ const LikePost = async (id: string, payload: number): Promise<IPost | null> => {
 
   const result = await Post.findOneAndUpdate(
     { _id: id },
-    { $inc: { like: payload } },
+    { $inc: { like: 1 } },
     { new: true }
   );
 
