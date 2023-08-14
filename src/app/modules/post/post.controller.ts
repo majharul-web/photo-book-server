@@ -35,21 +35,6 @@ const getAllPosts = catchAsync(async (req: Request, res: Response) => {
     data: result.data,
   });
 });
-const getTopThreePosts = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, postFilterableFields);
-
-  const paginationOptions = pick(req.query, paginationField);
-
-  const result = await PostService.getTopThreePosts(filters, paginationOptions);
-
-  sendResponse<IPost[]>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Post retrieved successfully !',
-    meta: result.meta,
-    data: result.data,
-  });
-});
 
 const getSinglePost = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -122,5 +107,4 @@ export const PostController = {
   updatePost,
   reviewPost,
   LikePost,
-  getTopThreePosts,
 };
