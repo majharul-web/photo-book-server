@@ -20,7 +20,7 @@ const PostSchema = new Schema<IPost>(
       default: 0,
     },
     reviews: {
-      type: [{ rating: Number, comment: String }],
+      type: [{ email: String, comment: String }],
     },
   },
   {
